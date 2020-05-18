@@ -1,1 +1,4 @@
-*.txt
+pubmed_result.txt
+data/
+config.ini
+__pycache__/
