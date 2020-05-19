@@ -12,5 +12,5 @@ class Test(unittest.TestCase):
 
     #@unittest.skip('skip')
     def testText(self):
-        tp = TextProcess()
+        tp = TextProcess('config.ini')
         tp.readfile('pubmed_result.txt')

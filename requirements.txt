@@ -2,3 +2,6 @@ pymongo
 urllib3
 nltk
 rake-nltk
+geotext
+pycountry
+universities

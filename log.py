@@ -4,8 +4,8 @@ from config import Config
 LOGGER = logging.getLogger(__name__)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 config = Config()
-logpath = config.getValue('sys','logpath')
-loglevel = config.getValue('sys','loglevel')
+logpath = config.getValue('Sys','LOGPATH')
+loglevel = config.getValueDefault('Sys','LOGLEVEL','info')
 if logpath is not None:
     fh = logging.FileHandler(logpath)
     fh.setFormatter(formatter)
