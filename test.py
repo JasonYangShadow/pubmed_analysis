@@ -16,6 +16,27 @@ class Test(unittest.TestCase):
         tp = TextProcess('config.ini')
         tp.readfile('pubmed_result.txt')
 
+    #@unittest.skip('skip')
+    def testTime(self):
+        mongo = Mongo('config.ini')
+        data = mongo.find('data')
+        dic = {}
+        for line in data:
+            if 'time' not in line:
+                continue
+            times = line['time'].split()
+            for time in times:
+                if time.startswith('20'):
+                    time = time.split(':')[0]
+                    time = time.split('-')[0]
+                    if time not in dic:
+                        dic[time] = 1
+                    else:
+                        dic[time] +=1
+                    break
+        print(dic)
+
+
     @unittest.skip('skip')
     def testFindCountry(self):
         mongo = Mongo('config.ini')
@@ -30,9 +51,9 @@ class Test(unittest.TestCase):
                 else:
                     country_map[country] += 1
         for k in sorted(country_map, key = country_map.get, reverse=True):
-            print(k, country_map[k])
+            print(k,',',country_map[k])
 
-    #@unittest.skip('skip')
+    @unittest.skip('skip')
     def testFindKeywords(self):
         mongo = Mongo('config.ini')
         data = mongo.find('data')
