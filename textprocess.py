@@ -18,6 +18,7 @@ class TextProcess:
         self.collection = 'data'
         self.minimum_length = int(self.config.getValueDefault('Data','MINLENGTH',400))
         self.max_items = int(self.config.getValue('Data','ITEMS'))
+        self.start = int(self.config.getValue('Data','START'))
         if not self.max_items:
             raise Exception('Please set max_items inside config.ini')
 
@@ -57,7 +58,7 @@ class TextProcess:
 
     def readfile(self, path):
         with open(path) as f:
-            n = 1
+            n = self.start
             rake = Rake()
             while True:
                 line = self.readblock(f)

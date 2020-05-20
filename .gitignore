@@ -1,3 +1,4 @@
 pubmed_result.txt
 data/
 __pycache__/
+*.log
