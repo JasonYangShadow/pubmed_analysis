@@ -2,6 +2,8 @@ import unittest
 from mongo import Mongo
 from textprocess import TextProcess
 from wordcloud import WordCloud, STOPWORDS
+import numpy as np
+from PIL import Image
 
 class Test(unittest.TestCase):
 
@@ -16,7 +18,7 @@ class Test(unittest.TestCase):
         tp = TextProcess('config.ini')
         tp.readfile('pubmed_result.txt')
 
-    #@unittest.skip('skip')
+    @unittest.skip('skip')
     def testTime(self):
         mongo = Mongo('config.ini')
         data = mongo.find('data')
@@ -72,3 +74,26 @@ class Test(unittest.TestCase):
         wc = WordCloud(background_color="white", max_words=2000, stopwords=stopwords, min_font_size=10, width = 800, height = 800)
         wc.generate(text)
         wc.to_file("cloud.png")
+
+    #@unittest.skip('skip')
+    def testGenWord(self):
+        mongo = Mongo('config.ini')
+        data = mongo.find('data')
+        keywords = []
+        for line in data:
+            if 'keywords' not in line:
+                continue
+            if 'country' not in line:
+                continue
+            if 'CN' in line['country']:
+                for keyword in line['keywords']:
+                    keywords.append(keyword)
+        text = ','.join(keywords)
+
+        stopwords = set(STOPWORDS)
+        stopwords.add("said")
+
+        mask = np.array(Image.open('china.png'))
+        wc = WordCloud(background_color="white", max_words=2000, stopwords=stopwords, min_font_size=10, mask=mask)
+        wc.generate(text)
+        wc.to_file("word_cn.png")
