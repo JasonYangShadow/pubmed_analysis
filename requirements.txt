@@ -5,3 +5,4 @@ rake-nltk
 geotext
 pycountry
 universities
+wordcloud
